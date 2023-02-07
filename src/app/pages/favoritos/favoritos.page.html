@@ -1,0 +1,103 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>favoritos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  
+
+
+  <ion-item>
+    <ion-searchbar (ionChange)="searchCustomer($event)" placeholder="Busca tu favorita" inputmode="decimal" type="decimal" [debounce]="250" showCancelButton="always"></ion-searchbar>
+  </ion-item>
+
+  <ion-card *ngFor="let items of searchedMovies " style="margin: 10px;padding: 3px;"  >
+   
+    <ion-row>
+       <ion-col size="12" style="border-radius: 3%;">
+         <ion-img  fullscreen  [src]="'https://image.tmdb.org/t/p/original/'+items.poster_path" class="ion-margin" style=" text-align: center; overflow: hidden; margin: 0; padding: 0; border-radius: 3%;" ></ion-img>
+         </ion-col>
+    </ion-row>
+    
+     <ion-row>
+ 
+       <ion-col size="12">
+ 
+           <ion-row>
+             <ion-col size="12" style="text-align: left; font-size: 15px;font-style: unset;">
+               <ion-card-title style="font-size:20px ;">{{items.original_title}}</ion-card-title> 
+             </ion-col>
+             <ion-col size="12">
+               <label>Titulo Orig.</label>
+             </ion-col>
+             <ion-col size="12">
+               <label>Resumen {{items.overview}}</label>
+             </ion-col>
+ 
+             <ion-col size="12">
+               <label >Fecha estreno {{items.release_date}}</label>
+             </ion-col>
+ 
+             <ion-col size="12" style="text-align: center;">
+               <ion-button (click)="eliminarPelicula(items.id)" (click)="presentToast()"size="small">
+                 Eliminar de Favoritos
+               </ion-button>  
+             </ion-col>
+
+             <ion-button id="open-modal" size="small">
+              Generos
+            </ion-button>    
+            <ion-modal
+            trigger="open-modal"
+            [initialBreakpoint]="0.25"
+            [breakpoints]="[0, 0.25, 0.5, 0.75]"
+            handleBehavior="cycle"
+          >
+            <ng-template>
+              <ion-content class="ion-padding">
+                <div class="ion-margin-top">
+                  <ion-label *ngIf="generos.id==peliculas.genre_ids"> 
+                   {{items.genre_ids}} 
+                   {{generos.name}}
+                    
+
+                  </ion-label>   
+                </div>
+              </ion-content>
+            </ng-template>
+          </ion-modal>
+ 
+
+           </ion-row>
+ 
+       </ion-col>
+
+     </ion-row>
+
+
+
+    
+   </ion-card>
+
+   
+   <ion-modal
+    trigger="open-modal"
+    [initialBreakpoint]="0.25"
+    [breakpoints]="[0, 0.25, 0.5, 0.75]"
+    handleBehavior="cycle"
+  >
+    <ng-template>
+      <ion-content class="ion-padding">
+        <div class="ion-margin-top">
+          <ion-label>Click the handle above to advance to the next breakpoint.</ion-label>
+        </div>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+   
+
+
+  
+</ion-content>
